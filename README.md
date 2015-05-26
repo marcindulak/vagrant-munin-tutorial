@@ -33,7 +33,7 @@ and /var/log/munin-node/munin-node.log on the nodes.
 Let's configure monitoring of Apache running on the **centos6** machine::
 
         $ vagrant ssh centos6 -c "sudo su -c 'cd /etc/munin/plugins/; ln -s /usr/share/munin/plugins/apache_accesses'"
-	$ vagrant ssh centos6 -c "sudo su -c 'cd /etc/munin/plugins/; ln -s /usr/share/munin/plugins/apache_processes'"
+        $ vagrant ssh centos6 -c "sudo su -c 'cd /etc/munin/plugins/; ln -s /usr/share/munin/plugins/apache_processes'"
         $ vagrant ssh centos6 -c "sudo su -c 'cd /etc/munin/plugins/; ln -s /usr/share/munin/plugins/apache_volume'"
         $ vagrant ssh centos6 -c "sudo su -c 'echo \"[apache_*]\" > /etc/munin/plugin-conf.d/apache'"
         $ vagrant ssh centos6 -c "sudo su -c 'service munin-node reload'"
