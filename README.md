@@ -51,7 +51,7 @@ After another 5 minutes the "Apache processes" should start showing some data.
 
 This brings up the summary point: Munin out-of-the-box is more a performance
 monitoring system. It does not tell you if a service is down, only if
-the performance metric does not exceed a give threshold.
+the performance metric does not fall outside of the given threshold.
 
 When done, destroy the test machines with::
 
