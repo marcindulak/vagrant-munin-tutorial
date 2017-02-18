@@ -35,8 +35,8 @@ Vagrant.configure(2) do |config|
   end
   # muninserver
   config.vm.define "muninserver" do |muninserver|
-    muninserver.vm.box = "puppetlabs/centos-6.6-64-nocm"
-    muninserver.vm.box_url = 'puppetlabs/centos-6.6-64-nocm'
+    muninserver.vm.box = "puppetlabs/centos-7.2-64-nocm"
+    muninserver.vm.box_url = 'puppetlabs/centos-7.2-64-nocm'
     muninserver.vm.network "private_network", ip: "192.168.0.5"
     muninserver.vm.network "forwarded_port", guest: 80, host: 8080
     muninserver.vm.provider "virtualbox" do |v|
@@ -99,6 +99,8 @@ SCRIPT
     centos7.vm.provision :shell, :inline => "yum install -y munin-node"
     centos7.vm.provision :shell, :inline => "sed -i 's/host_name .*/host_name centos7/' /etc/munin/munin-node.conf"
     centos7.vm.provision :shell, :inline => "sed -i 's/allow ^127.*/allow ^192\\.168\\.0\\.5$/' /etc/munin/munin-node.conf"
+    centos7.vm.provision :shell, :inline => "yum install -y httpd"
+    centos7.vm.provision :shell, :inline => $apache_status_conf
     centos7.vm.provision :shell, :inline => "service munin-node start"
     centos7.vm.provision :shell, :inline => "chkconfig munin-node on"
   end
@@ -114,8 +116,8 @@ SCRIPT
   config.vm.define "muninserver" do |muninserver|
     muninserver.vm.provision :shell, :inline => "hostname muninserver", run: "always"
     muninserver.vm.provision :shell, :inline => $etc_hosts
-    muninserver.vm.provision :shell, :inline => $epel6
-    muninserver.vm.provision :shell, :inline => $service_iptables_stop, run: "always"
+    muninserver.vm.provision :shell, :inline => $epel7
+    muninserver.vm.provision :shell, :inline => $systemctl_stop_firewalld, run: "always"
     muninserver.vm.provision :shell, :inline => "yum install -y httpd"
     muninserver.vm.provision :shell, :inline => "yum install -y munin munin-node"
     muninserver.vm.provision :shell, :inline => "htpasswd -b -c /etc/munin/munin-htpasswd munin munin"

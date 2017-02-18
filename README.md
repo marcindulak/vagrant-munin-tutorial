@@ -3,7 +3,7 @@ Description
 -----------
 
 Vagrantfile that installs and configures Munin server and nodes.
-The server runs on CentOS6, nodes can run on Debian(Ubuntu) and CentOS(Fedora).
+The server runs on CentOS7, nodes can run on Debian(Ubuntu) and CentOS(Fedora).
 
 Tested on: Ubuntu 14.04, CentOS 6/7.
 
@@ -30,22 +30,22 @@ Be patient, first only the contents of /var/www/html/munin/ is listed.
 Watch /var/log/munin/munin-update.log for Munin's activity on the server
 and /var/log/munin-node/munin-node.log on the nodes.
 
-Let's configure monitoring of Apache running on the **centos6** machine::
+Let's configure monitoring of Apache running on the **centos7** machine::
 
-        $ vagrant ssh centos6 -c "sudo su -c 'cd /etc/munin/plugins/; ln -s /usr/share/munin/plugins/apache_accesses'"
-        $ vagrant ssh centos6 -c "sudo su -c 'cd /etc/munin/plugins/; ln -s /usr/share/munin/plugins/apache_processes'"
-        $ vagrant ssh centos6 -c "sudo su -c 'cd /etc/munin/plugins/; ln -s /usr/share/munin/plugins/apache_volume'"
-        $ vagrant ssh centos6 -c "sudo su -c 'echo \"[apache_*]\" > /etc/munin/plugin-conf.d/apache'"
-        $ vagrant ssh centos6 -c "sudo su -c 'service munin-node reload'"
+        $ vagrant ssh centos7 -c "sudo su -c 'cd /etc/munin/plugins/; ln -s /usr/share/munin/plugins/apache_accesses'"
+        $ vagrant ssh centos7 -c "sudo su -c 'cd /etc/munin/plugins/; ln -s /usr/share/munin/plugins/apache_processes'"
+        $ vagrant ssh centos7 -c "sudo su -c 'cd /etc/munin/plugins/; ln -s /usr/share/munin/plugins/apache_volume'"
+        $ vagrant ssh centos7 -c "sudo su -c 'echo \"[apache_*]\" > /etc/munin/plugin-conf.d/apache'"
+        $ vagrant ssh centos7 -c "sudo su -c 'service munin-node restart'"
 
 After another 5 minutes Apache plots will be available in Munin's web interface.
-Note that Apache is not running on the **centos6** machine, as can be seen from::
+Note that Apache is not running on the **centos7** machine, as can be seen from::
 
-        $ vagrant ssh centos6 -c "sudo su -c 'curl http://localhost/'"
+        $ ! vagrant ssh centos7 -c "sudo su -c 'curl http://localhost/'"
 
 and yet, Munin does not report this as problem. Let's start Apache::
 
-        $ vagrant ssh centos6 -c "sudo su -c 'service httpd start'"
+        $ vagrant ssh centos7 -c "sudo su -c 'service httpd start'"
 
 After another 5 minutes the "Apache processes" should start showing some data.
 
